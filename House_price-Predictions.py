@@ -1,11 +1,19 @@
-#House Price Predictions
+"""Train a small linear-regression house-price baseline from a CSV file."""
+
+import argparse
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
-data = pd.read_csv(r"C:\Users\HP\Downloads\house_prices.csv")  
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("csv", type=Path, help="CSV containing area, bedrooms, bathrooms, and price columns")
+args = parser.parse_args()
+
+data = pd.read_csv(args.csv)
 print(data.head())
 X = data[['area', 'bedrooms', 'bathrooms']]   # Input features
 y = data['price']                             # Target variable
